@@ -50,3 +50,27 @@
 	text-align: center;
 	padding: 20px;
 }
+
+/* Style for the error list */
+.error-list {
+    background-color: #f8d7da; /* Light red background for errors */
+    color: #842029; /* Dark red text for contrast */
+    font-size: 0.95em; /* Slightly smaller text size */
+    border: 1px solid #f5c2c7; /* Border matching the background */
+    border-radius: 5px; /* Rounded corners for a softer look */
+    padding: 10px 15px; /* Space inside the error box */
+    margin: 10px 0; /* Space above and below */
+    list-style: none; /* Remove bullet points */
+    text-align: left; /* Align text to the left for readability */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Add error icon before the error text */
+.error-list li::before {
+    content: "⚠️ "; /* Warning icon */
+    font-size: 1.2em;
+    margin-right: 5px; /* Space between icon and text */
+    vertical-align: middle;
+}
+
+

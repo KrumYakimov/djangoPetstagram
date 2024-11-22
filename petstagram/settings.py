@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,8 +27,14 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    config("NGROK_ENDPOINT"),
+    "localhost"
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    config("NGROK_CSRF_TRUSTED_ORIGINS"),
+]
 
 # Application definition
 
@@ -109,6 +116,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+if DEBUG:
+    AUTH_PASSWORD_VALIDATORS = ()
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -136,3 +146,15 @@ MEDIA_ROOT = BASE_DIR / "mediafiles/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+AUTH_USER_MODEL = 'accounts.AppUser'
+
+# AWS SES Configuration
+AWS_ACCESS_KEY = config("AWS_ACCESS_KEY")
+AWS_SECRET = config("AWS_SECRET")
+AWS_REGION = config("AWS_REGION")
+EMAIL_SENDER = config("EMAIL_SENDER")
+
+
+LOGIN_REDIRECT_URL = reverse_lazy("home")
+LOGIN_URL = reverse_lazy("login")
+LOGOUT_REDIRECT_URL = reverse_lazy("home")
